@@ -11,10 +11,8 @@ import {
   share,
   switchMap,
   take,
-  debounceTime,
   tap,
-  throttleTime,
-  auditTime
+  throttleTime
 } from 'rxjs/operators'
 import {operationArgs} from './operationArgs'
 import {del} from './operations/delete'
@@ -136,7 +134,7 @@ export const operationEvents = memoize(
   (idPair: IdPair, typeName: string) =>
     results$.pipe(
       filter(result => result.args.idPair.publishedId === idPair.publishedId),
-      map((result): OperationSuccess | OperationError => {
+      map((result: any): OperationSuccess | OperationError => {
         const {operationName, idPair} = result.args
         return result.type === 'success'
           ? {type: 'success', op: operationName, id: idPair.publishedId}
